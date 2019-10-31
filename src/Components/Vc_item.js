@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Line from './Line';
 
 const Vc_list_block = styled.div`
 		display: flex;
@@ -73,10 +74,12 @@ const Vc_list_block = styled.div`
 
 const Vc_item = ({vcData}) =>{
 		
-	const [id, setId] = useState(0);
-
-	/*BTC, ETH, XRP, BCH, LTC, EOS, BSV, XLM */
-
+	const [jug, setJug] = useState([{vc_name:"",}]);
+	const [item_checked, setItem_checked] = useState({checked: false});
+	const vc_name = Object.keys(vcData);
+/*  const vc_info_list = vc_name.map((name, index) =>(<div>{index}</div>));*/	
+/*BTC, ETH, XRP, BCH, LTC, EOS, BSV, XLM */
+	
 	return(
 		<Vc_list_block>
 			<div className = "mainWrapper" >
@@ -88,74 +91,33 @@ const Vc_item = ({vcData}) =>{
                             <li>fluctate(24H)</li>
                         </ul>
                     </li>
+                    {vc_name.map((name, index) =>{
+                    	if(name !== "date"){
+                    		return (
+                    			<li>
+	                        		<ul key = {index} className = "block" onClick = {() => {   
+    	                        		setJug({vc_name: name});
+    	                        		setItem_checked({checked: !item_checked.checked});
+    		                        	}}>
+    		                            <li className = "left">{name}</li>
+    		                            <li className = "price">{vcData[name].closing_price}</li>
+    		                            <li className = "fluctate" style={{color: vcData[name].fluctate_rate_24H > 0 ? "blue" : "red"}}>
+                                                        {vcData[name].fluctate_24H}<span>({vcData[name].fluctate_rate_24H}%)</span></li>
+	                        		</ul>
+	                        		<br />
+	                        			{(() =>{
+	                        				if(jug.vc_name === name && item_checked.checked === true) {return (<Line />);}
+	                        				else return;
+	                        				})()
+	                        			}
+                   				</li>
 
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">BTC</li>
-                            <li className = "price">{vcData.BTC.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.BTC.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.BTC.fluctate_24H} <span>({vcData.BTC.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">ETH</li>
-                            <li className = "price">{vcData.ETH.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.ETH.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.ETH.fluctate_24H} <span>({vcData.ETH.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">XRP</li>
-                            <li className = "price">{vcData.XRP.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.XRP.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.XRP.fluctate_24H} <span>({vcData.XRP.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">BCH</li>
-                            <li className = "price">{vcData.BCH.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.BCH.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.BCH.fluctate_24H} <span>({vcData.BCH.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">LTC</li>
-                            <li className = "price">{vcData.LTC.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.LTC.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.LTC.fluctate_24H} <span>({vcData.LTC.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">EOS</li>
-                            <li className = "price">{vcData.EOS.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.EOS.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.EOS.fluctate_24H} <span>({vcData.EOS.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">BSV</li>
-                            <li className = "price">{vcData.BSV.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.BSV.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.BSV.fluctate_24H} <span>({vcData.BSV.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <ul className = "block">
-                            <li className = "left">XLM</li>
-                            <li className = "price">{vcData.XLM.closing_price}</li>
-                            <li className = "fluctate" style={{color: vcData.XLM.fluctate_rate_24H > 0 ? "blue" : "red"}}>{vcData.XLM.fluctate_24H} <span>({vcData.XLM.fluctate_rate_24H}%)</span></li>
-                        </ul>
-                    </li>
-
+                   				)
+                    	}else {
+                    		return null
+                    	}
+                    })}            
                 </ul>
-
-
 			</div>
 				
 

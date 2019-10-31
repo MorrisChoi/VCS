@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import Vc_info from './Components/Vc_info'
-import Book_Login from './Components/Book_Login'
+import Vc_info from './Components/Vc_info';
+import Book_Login from './Components/Book_Login';
+
 
 const App = () => {
   return (

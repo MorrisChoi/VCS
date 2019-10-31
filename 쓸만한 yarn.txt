@@ -1,0 +1,17 @@
+1. yarn add classnames
+CSS 클래스를 조건부로 설정할 때
+
+2. yarn add open-color include-media
+반응형 scss
+
+3.yarn add node-sass
+sass install
+
+
+4.charts 1
+yarn add react-apexcharts apexcharts --save
+
+5.api 불러오기
+yarn add axios
+
+6. yarn add styled-components
